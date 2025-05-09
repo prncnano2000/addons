@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vue formulaire pour les consultations -->
+    <record id="view_gestion_hospital_consultation_form" model="ir.ui.view">
+        <field name="name">gestion_hospital.consultation.form</field>
+        <field name="model">gestion_hospital.consultation</field>
+        <field name="arch" type="xml">
+            <form string="Consultation">
+                <header>
+                    <button name="action_demarrer" string="Démarrer" type="object" class="oe_highlight" 
+                            invisible="state != 'planifiee'"/>
+                    <button name="action_terminer" string="Terminer" type="object" class="oe_highlight" 
+                            invisible="state != 'en_cours'"/>
+                    <button name="action_annuler" string="Annuler" type="object" 
+                            invisible="state not in ('planifiee', 'en_cours')"/>
+                    <field name="state" widget="statusbar" clickable="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="patient_id" options="{'no_create': True}"/>
+                            <field name="medecin_id" options="{'no_create': True}"/>
+                            <field name="specialite_id" options="{'no_create': True}"/>
+                            <field name="date_consultation"/>
+                            <field name="date_fin" readonly="1"/>
+                            <field name="duree" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="montant"/>
+                            <field name="paiement"/>
+                            <field name="document_ids" widget="many2many_binary"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Détails de la consultation">
+                            <group>
+                                <field name="motif" placeholder="Décrire le motif de la consultation..."/>
+                                <field name="diagnostic" placeholder="Décrire le diagnostic..."/>
+                                <field name="prescription" placeholder="Indiquer les prescriptions..."/>
+                                <field name="notes" placeholder="Ajouter des notes complémentaires..."/>
+                            </group>
+                        </page>
+                        <page string="Historique">
+                            <field name="message_ids">
+                                <list>
+                                    <field name="author_id"/>
+                                    <field name="body"/>
+                                    <field name="date"/>
+                                </list>
+                                <form>
+                                    <group>
+                                        <field name="author_id"/>
+                                        <field name="body"/>
+                                        <field name="date"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <!-- <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div> -->
+            </form>
+        </field>
+    </record>
+
+    <!-- Vue liste pour les consultations -->
+    <record id="view_gestion_hospital_consultation_tree" model="ir.ui.view">
+        <field name="name">gestion_hospital.consultation.tree</field>
+        <field name="model">gestion_hospital.consultation</field>
+        <field name="arch" type="xml">
+            <list string="Consultations" decoration-info="state == 'planifiee'" 
+                decoration-warning="state == 'en_cours'" decoration-danger="state == 'annulee'">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="medecin_id"/>
+                <field name="date_consultation"/>
+                <field name="duree"/>
+                <field name="state" widget="badge"/>
+                <field name="paiement" widget="badge"/>
+                <field name="montant"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vue recherche pour les consultations -->
+    <record id="view_gestion_hospital_consultation_search" model="ir.ui.view">
+        <field name="name">gestion_hospital.consultation.search</field>
+        <field name="model">gestion_hospital.consultation</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher une consultation">
+                <field name="name" string="Référence"/>
+                <field name="patient_id"/>
+                <field name="medecin_id"/>
+                <field name="specialite_id"/>
+                <field name="date_consultation" filter_domain="[('date_consultation', 'ilike', self)]"/>
+                <separator/>
+                <filter string="Aujourd'hui" name="today" domain="[('date_consultation','>=', context_today().strftime('%Y-%m-%d 00:00:00'))]"/>
+                <filter string="Planifiées" name="planifiee" domain="[('state','=','planifiee')]"/>
+                <filter string="En cours" name="en_cours" domain="[('state','=','en_cours')]"/>
+                <filter string="Terminées" name="terminee" domain="[('state','=','terminee')]"/>
+                <filter string="Annulées" name="annulee" domain="[('state','=','annulee')]"/>
+                <filter string="Non payées" name="non_paye" domain="[('paiement','=','non_paye')]"/>
+                <filter string="Payées" name="paye" domain="[('paiement','=','paye')]"/>
+                <group expand="0" string="Regrouper par">
+                    <filter string="Patient" name="group_by_patient" context="{'group_by':'patient_id'}"/>
+                    <filter string="Médecin" name="group_by_medecin" context="{'group_by':'medecin_id'}"/>
+                    <filter string="Spécialité" name="group_by_specialite" context="{'group_by':'specialite_id'}"/>
+                    <filter string="État" name="group_by_state" context="{'group_by':'state'}"/>
+                    <filter string="Paiement" name="group_by_paiement" context="{'group_by':'paiement'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action pour les consultations -->
+    <record id="gestion_hospital_consultation_action" model="ir.actions.act_window">
+        <field name="name">Consultations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gestion_hospital.consultation</field>
+        <field name="view_mode">list,form,calendar</field>
+        <field name="search_view_id" ref="view_gestion_hospital_consultation_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer votre première consultation
+            </p>
+        </field>
+        <field name="context">{'default_state': 'planifiee'}</field>
+    </record>
+
+    <!-- Vue Calendrier -->
+    <record id="view_gestion_hospital_consultation_calendar" model="ir.ui.view">
+        <field name="name">gestion_hospital.consultation.calendar</field>
+        <field name="model">gestion_hospital.consultation</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendrier des consultations" date_start="date_consultation" date_stop="date_fin"
+                    color="patient_id" mode="month">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="medecin_id"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+</odoo>

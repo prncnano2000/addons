@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vue Formulaire -->
+    <record id="view_patient_form" model="ir.ui.view">
+        <field name="name">gestion_hospital.patient.form</field>
+        <field name="model">gestion_hospital.patient</field>
+        <field name="arch" type="xml">
+            <form string="Patient">
+                <header>
+                    <button name="action_marquer_en_cours" string="Marquer comme guéri" type="object"
+                            class="btn-warning" invisible="state == 'en_cours'"/>
+                    <button name="action_marquer_gueri" string="Marquer comme en traitement" type="object"
+                            class="btn-primary" invisible="state == 'gueri'"/>
+                    <button name="action_marquer_decede" string="Marquer comme décédé" type="object"
+                            class="btn-danger" invisible="state == 'decede'"/>
+                    <button name="action_marquer_chronique" string="Marquer comme chronique" type="object"
+                            class="btn-warning" invisible="state == 'chronique'"/>
+                    <field name="state" widget="statusbar"
+                        statusbar_visible="nouveau,en_cours,gueri,chronique,decede"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="reference" readonly="1" placeholder="Référence automatique"/>
+                            <field name="name" required="1" placeholder="Nom complet du patient"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="image" widget="image" class="oe_avatar"/>
+                            <field name="age" readonly="1"/>
+                            <field name="sexe"/>
+                            <field name="date_naissance"/>
+                        </group>
+                        <group>
+                            <field name="telephone"/>
+                            <field name="email"/>
+                            <field name="groupe_sanguin"/>
+                            <field name="medecin_traitant_id" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Informations médicales">
+                            <group>
+                                <field name="historique_medical" widget="html"/>
+                                <field name="allergies" placeholder="Liste des allergies connues"/>
+                            </group>
+                        </page>
+                        <page string="Consultations">
+                            <field name="consultations_ids" context="{'default_patient_id': id}">
+                                <list>
+                                    
+                                    <field name="medecin_id"/>
+                                    <field name="motif"/>
+                                    <field name="diagnostic"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Hospitalisations">
+                            <field name="hospitalisation_ids" context="{'default_patient_id': id}">
+                                <list>
+                                    <field name="date_admission"/>
+                                    <field name="chambre_id"/>
+                                    <field name="duree_jours"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <!-- <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div> -->
+            </form>
+        </field>
+    </record>
+
+    <!-- Vue Liste -->
+    <record id="view_patient_list" model="ir.ui.view">
+        <field name="name">gestion_hospital.patient.list</field>
+        <field name="model">gestion_hospital.patient</field>
+        <field name="arch" type="xml">
+            <list string="Patients" decoration-info="state == 'nouveau'" 
+                  decoration-success="state == 'gueri'" 
+                  decoration-warning="state == 'chronique'" 
+                  decoration-danger="state == 'decede'">
+                <field name="reference"/>
+                <field name="name"/>
+                <field name="age"/>
+                <field name="sexe"/>
+                <field name="telephone"/>
+                <field name="email"/>
+                <field name="groupe_sanguin"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vue Recherche -->
+<!-- <record id="view_patient_search" model="ir.ui.view">
+    <field name="name">gestion_hospital.patient.search</field>
+    <field name="model">gestion_hospital.patient</field>
+    <field name="arch" type="xml">
+        <search string="Recherche Patient">
+            <field name="name" string="Nom"/>
+            <field name="reference" string="Référence"/>
+            <field name="telephone" string="Téléphone"/>
+            <field name="email" string="Email"/>
+
+            <separator/>
+
+            <filter string="Nouveaux" domain="[('state', '=', 'nouveau')]"/>
+            <filter string="En traitement" domain="[('state', '=', 'en_cours')]"/>
+            <filter string="Guéris" domain="[('state', '=', 'gueri')]"/>
+            <filter string="Chroniques" domain="[('state', '=', 'chronique')]"/>
+            <filter string="Décédés" domain="[('state', '=', 'decede')]"/>
+
+            <group expand="0" string="Regrouper par">
+                <filter string="Sexe" context="{'group_by': 'sexe'}"/>
+                <filter string="État" context="{'group_by': 'state'}"/>
+                <filter string="Médecin traitant" context="{'group_by': 'medecin_traitant_id'}"/>
+            </group>
+        </search>
+    </field>
+</record> -->
+
+    <!-- Action principale -->
+    <record id="gestion_hospital_patient_action" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">gestion_hospital.patient</field>
+        <field name="view_mode">list,form</field>
+        <!-- <field name="search_view_id" ref="view_patient_search"/> -->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer un nouveau patient.
+            </p>
+        </field>
+    </record>
+
+</odoo>

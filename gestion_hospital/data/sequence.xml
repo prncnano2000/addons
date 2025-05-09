@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Séquence pour les patients -->
+        <record id="seq_patient" model="ir.sequence">
+            <field name="name">Séquence Patient</field>
+            <field name="code">gestion_hospital.patient</field>
+            <field name="prefix">PAT/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <!-- Séquence pour les consultations -->
+        <record id="seq_consultation" model="ir.sequence">
+            <field name="name">Séquence Consultation</field>
+            <field name="code">gestion_hospital.consultation</field>
+            <field name="prefix">CONS/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <!-- Séquence pour les hospitalisations -->
+        <record id="seq_hospitalisation" model="ir.sequence">
+            <field name="name">Séquence Hospitalisation</field>
+            <field name="code">gestion_hospital.hospitalisation</field>
+            <field name="prefix">HOSP/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+</odoo> 

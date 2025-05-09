@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vue formulaire pour les spécialités -->
+    <record id="view_gestion_hospital_specialite_form" model="ir.ui.view">
+        <field name="name">gestion_hospital.specialite.form</field>
+        <field name="model">gestion_hospital.specialite</field>
+        <field name="arch" type="xml">
+            <form string="Spécialité">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nom de la spécialité"/>
+                        </h1>
+                        <h2>
+                            <field name="code"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="nombre_lits"/>
+                            <field name="lits_occupes"/>
+                            <field name="taux_occupation" widget="percentage"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Médecins">
+                            <field name="medecin_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="matricule"/>
+                                    <field name="telephone"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Consultations">
+                            <field name="consultation_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="patient_id"/>
+                                    <field name="date_consultation"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vue liste pour les spécialités -->
+    <record id="view_gestion_hospital_specialite_tree" model="ir.ui.view">
+        <field name="name">gestion_hospital.specialite.tree</field>
+        <field name="model">gestion_hospital.specialite</field>
+        <field name="arch" type="xml">
+            <list string="Spécialités">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="nombre_lits"/>
+                <field name="lits_occupes"/>
+                <field name="taux_occupation" widget="percentage"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vue recherche pour les spécialités -->
+    <record id="view_gestion_hospital_specialite_search" model="ir.ui.view">
+        <field name="name">gestion_hospital.specialite.search</field>
+        <field name="model">gestion_hospital.specialite</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher une spécialité">
+                <field name="name"/>
+                <field name="code"/>
+                <separator/>
+                <filter string="Taux d'occupation élevé" name="occupation_elevee" domain="[('taux_occupation','&gt;',80)]"/>
+                <filter string="Taux d'occupation faible" name="occupation_faible" domain="[('taux_occupation','&lt;',20)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action pour les spécialités -->
+    <record id="gestion_hospital_specialite_action" model="ir.actions.act_window">
+        <field name="name">Spécialités</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gestion_hospital.specialite</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_gestion_hospital_specialite_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer votre première spécialité
+            </p>
+        </field>
+    </record>
+</odoo> 

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vue formulaire -->
+    <record id="view_hospitalisation_form" model="ir.ui.view">
+        <field name="name">gestion_hospital.hospitalisation.form</field>
+        <field name="model">gestion_hospital.hospitalisation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_planifier" string="Planifier" type="object" 
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_admettre" string="Admettre" type="object" 
+                            class="btn-primary" invisible="state != 'planifiee'"/>
+                    <button name="action_terminer" string="Terminer" type="object" 
+                            class="btn-primary" invisible="state != 'en_cours'"/>
+                    <button name="action_annuler" string="Annuler" type="object" 
+                            class="btn-secondary" invisible="state not in ('planifiee', 'en_cours')"/>
+                    <field name="state" widget="statusbar" 
+                        statusbar_visible="draft,planifiee,en_cours,terminee"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="patient_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="medecin_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="specialite_id"/>
+                            <field name="chambre_id" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="date_admission"/>
+                            <field name="date_sortie"/>
+                            <field name="date_sortie_reelle" readonly="state != 'terminee'"/>
+                            <field name="duree_jours"/>
+                            <field name="duree_heures"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Informations médicales" name="medical_info">
+                            <group>
+                                <field name="motif"/>
+                                <field name="diagnostic"/>
+                                <field name="traitement"/>
+                                <field name="notes"/>
+                            </group>
+                        </page>
+                        <page string="Facturation" name="billing">
+                            <group>
+                                <field name="montant"/>
+                                <field name="paiement"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids" groups="base.group_user"/>
+                    <field name="message_ids" groups="base.group_user"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <!-- Vue liste -->
+    <record id="view_hospitalisation_tree" model="ir.ui.view">
+        <field name="name">gestion_hospital.hospitalisation.tree</field>
+        <field name="model">gestion_hospital.hospitalisation</field>
+        <field name="arch" type="xml">
+            <list string="Hospitalisations" decoration-info="state=='planifiee'" decoration-success="state=='terminee'" decoration-warning="state=='en_cours'" decoration-danger="state=='annulee'" sample="1">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="medecin_id"/>
+                <field name="specialite_id"/>
+                <field name="chambre_id"/>
+                <field name="date_admission"/>
+                <field name="date_sortie"/>
+                <field name="duree_jours"/>
+                <field name="montant"/>
+                <field name="paiement"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    <!-- Vue kanban -->
+    <record id="view_hospitalisation_kanban" model="ir.ui.view">
+        <field name="name">gestion_hospital.hospitalisation.kanban</field>
+        <field name="model">gestion_hospital.hospitalisation</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" sample="1" quick_create="false">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="medecin_id"/>
+                <field name="chambre_id"/>
+                <field name="date_admission"/>
+                <field name="duree_jours"/>
+                <field name="state"/>
+                <field name="paiement"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div class="o_kanban_record_subtitle">
+                                    <field name="patient_id"/>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="medecin_id"/>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="chambre_id"/>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="date_admission"/>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="duree_jours"/> jours
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <span t-attf-class="badge text-bg-#{
+                                            record.state.raw_value == 'planifiee' and 'info' or
+                                            record.state.raw_value == 'en_cours' and 'warning' or
+                                            record.state.raw_value == 'terminee' and 'success' or
+                                            'danger'
+                                        }">
+                                            <field name="state"/>
+                                        </span>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <span t-attf-class="badge text-bg-#{
+                                            record.paiement.raw_value == 'paye' and 'success' or
+                                            record.paiement.raw_value == 'partiel' and 'warning' or
+                                            'danger'
+                                        }">
+                                            <field name="paiement"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <!-- Vue recherche -->
+    <record id="view_hospitalisation_search" model="ir.ui.view">
+        <field name="name">gestion_hospital.hospitalisation.search</field>
+        <field name="model">gestion_hospital.hospitalisation</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="medecin_id"/>
+                <field name="specialite_id"/>
+                <field name="chambre_id"/>
+                <separator/>
+                <filter string="Planifiées" name="planifiee" domain="[('state','=','planifiee')]"/>
+                <filter string="En cours" name="en_cours" domain="[('state','=','en_cours')]"/>
+                <filter string="Terminées" name="terminee" domain="[('state','=','terminee')]"/>
+                <filter string="Annulées" name="annulee" domain="[('state','=','annulee')]"/>
+                <separator/>
+                <filter string="Non payées" name="non_paye" domain="[('paiement','=','non_paye')]"/>
+                <filter string="Partiellement payées" name="partiel" domain="[('paiement','=','partiel')]"/>
+                <filter string="Payées" name="paye" domain="[('paiement','=','paye')]"/>
+                <group expand="0" string="Regrouper par">
+                    <filter string="Patient" name="group_by_patient" context="{'group_by':'patient_id'}"/>
+                    <filter string="Médecin" name="group_by_medecin" context="{'group_by':'medecin_id'}"/>
+                    <filter string="Spécialité" name="group_by_specialite" context="{'group_by':'specialite_id'}"/>
+                    <filter string="Chambre" name="group_by_chambre" context="{'group_by':'chambre_id'}"/>
+                    <filter string="État" name="group_by_state" context="{'group_by':'state'}"/>
+                    <filter string="Paiement" name="group_by_paiement" context="{'group_by':'paiement'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <!-- Action -->
+    <record id="gestion_hospital_hospitalisation_action" model="ir.actions.act_window">
+        <field name="name">Hospitalisations</field>
+        <field name="res_model">gestion_hospital.hospitalisation</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="view_hospitalisation_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer une nouvelle hospitalisation
+            </p>
+        </field>
+    </record>
+
+    
+</odoo>

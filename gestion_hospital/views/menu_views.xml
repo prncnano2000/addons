@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- menu root -->
+        <menuitem
+            id="gestion_hospital_menu"
+            name="Gestion Hospitaliere"
+            sequence="0"/>
+
+        <!-- menu patient -->
+        <menuitem
+            id="gestion_hospital_patient_menu"
+            name="Patients"
+            action="gestion_hospital_patient_action"
+            parent="gestion_hospital_menu"
+            sequence="1"/>
+
+            <!-- menu medecin -->
+        <menuitem
+            id="gestion_hospital_medecin_menu"
+            name="Medecins"
+            action="gestion_hospital_medecin_action"
+            parent="gestion_hospital_menu"
+            sequence="2"/>
+
+            <!-- menu consultation -->
+        <menuitem
+            id="gestion_hospital_consultation_menu"
+            name="Consultations"
+            action="gestion_hospital_consultation_action"
+            parent="gestion_hospital_menu"
+            sequence="3"/>
+
+            <!-- menu hospitalisation -->
+        <menuitem
+            id="gestion_hospital_hospitalisation_menu"
+            name="Hospitalisations"
+            action="gestion_hospital_hospitalisation_action"
+            parent="gestion_hospital_menu"
+            sequence="4"/>
+
+            <!-- menu chambre -->
+        <menuitem
+            id="gestion_hospital_chambre_menu"
+            name="Chambres"
+            action="gestion_hospital_chambre_action"
+            parent="gestion_hospital_menu"
+            sequence="5"/>
+
+            <!-- menu specialite -->
+        <menuitem
+            id="gestion_hospital_specialite_menu"
+            name="Specialites"
+            action="gestion_hospital_specialite_action"
+            parent="gestion_hospital_menu"
+            sequence="6"/>
+</odoo>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vue formulaire pour les chambres -->
+    <record id="view_gestion_hospital_chambre_form" model="ir.ui.view">
+        <field name="name">gestion_hospital.chambre.form</field>
+        <field name="model">gestion_hospital.chambre</field>
+        <field name="arch" type="xml">
+            <form string="Chambre">
+                <header>
+                    <field name="state" widget="statusbar" clickable="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="numero" required="1"/>
+                            <field name="specialite_id" required="1" options="{'no_create': True}"/>
+                            <field name="type"/>
+                            <field name="capacite"/>
+                        </group>
+                        <group>
+                            <field name="lits_occupes" readonly="1"/>
+                            <field name="taux_occupation" readonly="1"/>
+                            <field name="state"/>
+                            <button name="action_voir_hospitalisations" string="Voir les hospitalisations" type="object" class="oe_highlight"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Détails">
+                            <group>
+                                <field name="equipements" placeholder="Listez les équipements disponibles..."/>
+                                <field name="notes" placeholder="Ajoutez des notes complémentaires..."/>
+                            </group>
+                        </page>
+                        <page string="Hospitalisations">
+                            <field name="hospitalisation_ids">
+                                <list>
+                                    <field name="patient_id"/>
+                                    <field name="date_admission"/>
+                                    <field name="date_sortie_reelle"/>
+                                    <field name="state"/>
+                                </list>
+                                <form>
+                                    <group>
+                                        <field name="patient_id"/>
+                                        <field name="date_admission"/>
+                                        <field name="date_sortie_reelle"/>
+                                        <field name="motif"/>
+                                        <field name="state"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vue liste pour les chambres -->
+    <record id="view_gestion_hospital_chambre_tree" model="ir.ui.view">
+        <field name="name">gestion_hospital.chambre.tree</field>
+        <field name="model">gestion_hospital.chambre</field>
+        <field name="arch" type="xml">
+            <list string="Chambres" decoration-success="state == 'disponible'" 
+                decoration-danger="state == 'occupee'" decoration-warning="state == 'maintenance'">
+                <field name="numero"/>
+                <field name="name"/>
+                <field name="specialite_id"/>
+                <field name="type"/>
+                <field name="capacite"/>
+                <field name="lits_occupes"/>
+                <field name="taux_occupation" widget="progressbar" options="{'current_value': taux_occupation, 'max_value': 100}"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vue recherche pour les chambres -->
+    <record id="view_gestion_hospital_chambre_search" model="ir.ui.view">
+        <field name="name">gestion_hospital.chambre.search</field>
+        <field name="model">gestion_hospital.chambre</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher une chambre">
+                <field name="numero" string="Numéro"/>
+                <field name="specialite_id"/>
+                <field name="type"/>
+                <separator/>
+                <filter string="Disponibles" name="disponible" domain="[('state','=','disponible')]"/>
+                <filter string="Occupées" name="occupee" domain="[('state','=','occupee')]"/>
+                <filter string="En maintenance" name="maintenance" domain="[('state','=','maintenance')]"/>
+                <filter string="Réservées" name="reservee" domain="[('state','=','reservee')]"/>
+                <filter string="Capacité &gt; 1" name="capacite_sup_1" domain="[('capacite','>',1)]"/>
+                <group expand="0" string="Regrouper par">
+                    <filter string="Spécialité" name="group_by_specialite" context="{'group_by':'specialite_id'}"/>
+                    <filter string="Type" name="group_by_type" context="{'group_by':'type'}"/>
+                    <filter string="État" name="group_by_state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action pour les chambres -->
+    <record id="gestion_hospital_chambre_action" model="ir.actions.act_window">
+        <field name="name">Chambres</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gestion_hospital.chambre</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_gestion_hospital_chambre_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer votre première chambre
+            </p>
+        </field>
+        <field name="context">{'default_state': 'disponible'}</field>
+    </record>
+</odoo>
