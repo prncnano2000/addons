@@ -9,9 +9,9 @@ class Chambre(models.Model):
     _order = "numero"
 
     name = fields.Char(string="Nom", compute="_compute_name", store=True)
-    numero = fields.Char(string="Numéro", required=True, tracking=True)
+    numero = fields.Char(string="Numéro", required=0, tracking=True)
     specialite_id = fields.Many2one(
-        "gestion_hospital.specialite", string="Spécialité", required=True, tracking=True
+        "gestion_hospital.specialite", string="Spécialité", required=0, tracking=True
     )
     capacite = fields.Integer(
         string="Capacité (lits)",

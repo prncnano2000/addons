@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="medecin_demo_simple_1" model="gestion_hospital.medecin">
+            <field name="name">Médecin Démo 1</field>
+            <field name="matricule">MED-DEMO-001</field> </record>
+        <record id="medecin_demo_simple_2" model="gestion_hospital.medecin">
+            <field name="name">Médecin Démo 2</field>
+            <field name="matricule">MED-DEMO-002</field> </record>
+        <record id="medecin_demo_simple_3" model="gestion_hospital.medecin">
+            <field name="name">Médecin Démo 3</field>
+            <field name="matricule">MED-DEMO-003</field> </record>
+        <record id="medecin_demo_simple_4" model="gestion_hospital.medecin">
+            <field name="name">Médecin Démo 4</field>
+            <field name="matricule">MED-DEMO-004</field> </record>
+        <record id="medecin_demo_simple_5" model="gestion_hospital.medecin">
+            <field name="name">Médecin Démo 5</field>
+            <field name="matricule">MED-DEMO-005</field> </record>
+        <record id="medecin_demo_simple_6" model="gestion_hospital.medecin">
+            <field name="name">Médecin Démo 6</field>
+            <field name="matricule">MED-DEMO-006</field> </record>
+        <record id="medecin_demo_simple_7" model="gestion_hospital.medecin">
+            <field name="name">Médecin Démo 7</field>
+            <field name="matricule">MED-DEMO-007</field> </record>
+        <record id="medecin_demo_simple_8" model="gestion_hospital.medecin">
+            <field name="name">Médecin Démo 8</field>
+            <field name="matricule">MED-DEMO-008</field> </record>
+        <record id="medecin_demo_simple_9" model="gestion_hospital.medecin">
+            <field name="name">Médecin Démo 9</field>
+            <field name="matricule">MED-DEMO-009</field> </record>
+        <record id="medecin_demo_simple_10" model="gestion_hospital.medecin">
+            <field name="name">Médecin Démo 10</field>
+            <field name="matricule">MED-DEMO-010</field> </record>
+
+    </data>
+</odoo>

@@ -11,13 +11,13 @@ class Specialite(models.Model):
 
     name = fields.Char(
         string="Nom de la spécialité",
-        required=True,
+        required=0,
         tracking=True,
         help="Nom complet de la spécialité médicale",
     )
     code = fields.Char(
         string="Code",
-        required=True,
+        required=0,
         tracking=True,
         help="Code unique identifiant la spécialité",
         copy=False,

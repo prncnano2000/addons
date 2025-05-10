@@ -15,10 +15,10 @@ class Consultation(models.Model):
         copy=False,
     )
     patient_id = fields.Many2one(
-        "gestion_hospital.patient", string="Patient", required=True, tracking=True
+        "gestion_hospital.patient", string="Patient", required=0, tracking=True
     )
     medecin_id = fields.Many2one(
-        "gestion_hospital.medecin", string="Médecin", required=True, tracking=True
+        "gestion_hospital.medecin", string="Médecin", required=0, tracking=True
     )
     specialite_id = fields.Many2one(
         "gestion_hospital.specialite", string="Spécialité", required=0, tracking=True
@@ -34,7 +34,7 @@ class Consultation(models.Model):
     duree = fields.Float(
         string="Durée (heures)", compute="_compute_duree", store=True, digits=(2, 2)
     )
-    motif = fields.Text(string="Motif de consultation", required=True, tracking=True)
+    motif = fields.Text(string="Motif de consultation", required=0, tracking=True)
     diagnostic = fields.Text(string="Diagnostic", tracking=True)
     prescription = fields.Text(string="Prescription", tracking=True)
     notes = fields.Text(string="Notes")

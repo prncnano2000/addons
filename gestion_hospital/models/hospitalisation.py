@@ -18,14 +18,14 @@ class Hospitalisation(models.Model):
     patient_id = fields.Many2one(
         "gestion_hospital.patient",
         string="Patient",
-        required=True,
+        required=0,
         tracking=True,
         domain=[("active", "=", True)],
     )
     medecin_id = fields.Many2one(
         "gestion_hospital.medecin",
         string="Médecin traitant",
-        required=True,
+        required=0,
         tracking=True,
         domain=[("active", "=", True)],
     )
@@ -58,7 +58,7 @@ class Hospitalisation(models.Model):
         help="Date et heure de sortie effective du patient",
     )
 
-    motif = fields.Text(string="Motif d'hospitalisation", required=True, tracking=True)
+    motif = fields.Text(string="Motif d'hospitalisation", required=0, tracking=True)
     diagnostic = fields.Text(string="Diagnostic", tracking=True)
     traitement = fields.Text(string="Traitement", tracking=True)
     notes = fields.Text(string="Notes")

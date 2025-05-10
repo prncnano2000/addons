@@ -10,13 +10,13 @@ class Medecin(models.Model):
 
     name = fields.Char(
         string="Nom complet",
-        required=True,
+        required=0,
         tracking=True,
         help="Nom et prénom du médecin",
     )
     matricule = fields.Char(
         string="Matricule",
-        required=True,
+        required=0,
         tracking=True,
         copy=False,
         help="Identifiant unique du médecin",
