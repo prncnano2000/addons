@@ -76,8 +76,8 @@
                 <field name="name"/>
                 <field name="code"/>
                 <separator/>
-                <filter string="Taux d'occupation élevé" name="occupation_elevee" domain="[('taux_occupation','&gt;',80)]"/>
-                <filter string="Taux d'occupation faible" name="occupation_faible" domain="[('taux_occupation','&lt;',20)]"/>
+                <filter string="Taux d'occupation élevé" name="occupation_elevee" domain="[('taux_occupation','&gt;',70)]"/>
+                <filter string="Taux d'occupation faible" name="occupation_faible" domain="[('taux_occupation','&lt;',30)]"/>
             </search>
         </field>
     </record>

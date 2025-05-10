@@ -30,12 +30,12 @@ class Hospitalisation(models.Model):
         domain=[("active", "=", True)],
     )
     specialite_id = fields.Many2one(
-        "gestion_hospital.specialite", string="Spécialité", required=True, tracking=True
+        "gestion_hospital.specialite", string="Spécialité", required=0, tracking=True
     )
     chambre_id = fields.Many2one(
         "gestion_hospital.chambre",
         string="Chambre",
-        required=True,
+        required=0,
         tracking=True,
         domain="[('specialite_id', '=?', specialite_id), ('state', '!=', 'occupee')]",
     )

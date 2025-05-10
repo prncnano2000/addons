@@ -7,10 +7,10 @@
         <field name="arch" type="xml">
             <form string="Patient">
                 <header>
-                    <button name="action_marquer_en_cours" string="Marquer comme guéri" type="object"
-                            class="btn-warning" invisible="state == 'en_cours'"/>
-                    <button name="action_marquer_gueri" string="Marquer comme en traitement" type="object"
-                            class="btn-primary" invisible="state == 'gueri'"/>
+                    <button name="action_marquer_en_cours" string="Marquer comme en traitement " type="object"
+                            class="btn-primary" invisible="state == 'en_cours'"/>
+                    <button name="action_marquer_gueri" string="Marquer comme guéri" type="object"
+                            class="btn-success" invisible="state == 'gueri'"/>
                     <button name="action_marquer_decede" string="Marquer comme décédé" type="object"
                             class="btn-danger" invisible="state == 'decede'"/>
                     <button name="action_marquer_chronique" string="Marquer comme chronique" type="object"

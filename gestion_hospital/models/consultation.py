@@ -21,7 +21,7 @@ class Consultation(models.Model):
         "gestion_hospital.medecin", string="Médecin", required=True, tracking=True
     )
     specialite_id = fields.Many2one(
-        "gestion_hospital.specialite", string="Spécialité", required=True, tracking=True
+        "gestion_hospital.specialite", string="Spécialité", required=0, tracking=True
     )
     date_consultation = fields.Datetime(
         string="Date de consultation",
@@ -30,6 +30,7 @@ class Consultation(models.Model):
         help="Date et heure prévues pour la consultation",
     )
     date_fin = fields.Datetime(string="Date de fin", readonly=True, tracking=True)
+
     duree = fields.Float(
         string="Durée (heures)", compute="_compute_duree", store=True, digits=(2, 2)
     )
@@ -58,12 +59,12 @@ class Consultation(models.Model):
         tracking=True,
     )
     document_ids = fields.Many2many("ir.attachment", string="Documents joints")
-    
+
     company_id = fields.Many2one(
-        'res.company', 
-        string='Société', 
+        "res.company",
+        string="Société",
         default=lambda self: self.env.company,
-        tracking=True
+        tracking=True,
     )
 
     _sql_constraints = [
@@ -97,7 +98,7 @@ class Consultation(models.Model):
     def _onchange_medecin_id(self):
         if self.medecin_id:
             self.specialite_id = self.medecin_id.specialite_id
-            
+
     @api.onchange("patient_id")
     def _onchange_patient_id(self):
         if self.patient_id and self.patient_id.medecin_traitant_id:
@@ -133,10 +134,10 @@ class Consultation(models.Model):
                         ),
                     }
                 )
-                
+
     def action_marquer_paye(self):
         self.write({"paiement": "paye"})
-        
+
     def action_marquer_partiel(self):
         self.write({"paiement": "partiel"})
 

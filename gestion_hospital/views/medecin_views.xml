@@ -6,63 +6,80 @@
         <field name="model">gestion_hospital.medecin</field>
         <field name="arch" type="xml">
             <form string="Médecin">
+
                 <header>
-                    <field name="state" widget="statusbar"/>
+                    <button name="action_marquer_actif" string="Marquer comme actif" type="object"
+                        class="btn-success" invisible="state == 'actif'" />
+
+                    <button name="action_marquer_inactif" string="Marquer comme inactif" type="object"
+                        class="btn-danger" invisible="state == 'inactif'" />
+
+                    <button name="action_marquer_conge" string="Marquer comme en conge" type="object"
+                        class="btn-info" invisible="state == 'conge'" />
+
+                    <button name="action_marquer_formation" string="Marquer comme en formation" type="object"
+                        class="btn-warning" invisible="state == 'formation'" />
+
+                    <field name="state" widget="statusbar"
+                        statusbar_visible="actif,inactif,conge,formation" />
+
                 </header>
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="name" placeholder="Nom du médecin"/>
+                            <field name="name" placeholder="Nom du médecin" />
                         </h1>
                         <h2>
-                            <field name="matricule"/>
+                            <field name="matricule" />
                         </h2>
                     </div>
                     <group>
                         <group>
-                            <field name="specialite_id"/>
-                            <field name="disponibilite"/>
-                            <field name="telephone"/>
-                            <field name="email"/>
+                            <field name="specialite_id" />
+                            <field name="disponibilite" />
+                            <field name="telephone" />
+                            <field name="email" />
                         </group>
                         <group>
-                            <field name="horaires_travail"/>
-                            <field name="competences"/>
+                            <field name="horaires_travail" />
+                            <field name="competences" />
                         </group>
                     </group>
                     <notebook>
                         <page string="Consultations">
                             <field name="consultation_ids">
                                 <list>
-                                    <field name="name"/>
-                                    <field name="patient_id"/>
-                                    <field name="date_consultation"/>
-                                    <field name="state"/>
+                                    <field name="name" />
+                                    <field name="patient_id" />
+                                    <field name="date_consultation" />
+                                    <field name="state" />
                                 </list>
                             </field>
                         </page>
                     </notebook>
                 </sheet>
-                <!-- <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div> -->
+                <!-- <group name="chatter" string="chatter">
+                    <div class="oe_chatter">
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </group> -->
+                
             </form>
         </field>
     </record>
-
+    
     <!-- Vue liste pour les médecins -->
     <record id="view_gestion_hospital_medecin_tree" model="ir.ui.view">
         <field name="name">gestion_hospital.medecin.tree</field>
         <field name="model">gestion_hospital.medecin</field>
         <field name="arch" type="xml">
             <list string="Médecins">
-                <field name="name"/>
-                <field name="matricule"/>
-                <field name="specialite_id"/>
-                <field name="disponibilite"/>
-                <field name="state"/>
+                <field name="name" />
+                <field name="matricule" />
+                <field name="specialite_id" />
+                <field name="disponibilite" />
+                <field name="state" />
             </list>
         </field>
     </record>
@@ -73,15 +90,16 @@
         <field name="model">gestion_hospital.medecin</field>
         <field name="arch" type="xml">
             <search string="Rechercher un médecin">
-                <field name="name"/>
-                <field name="matricule"/>
-                <field name="specialite_id"/>
-                <separator/>
-                <filter string="Disponibles" name="disponible" domain="[('disponibilite','=',True)]"/>
-                <filter string="En congé" name="en_conge" domain="[('state','=','congé')]"/>
+                <field name="name" />
+                <field name="matricule" />
+                <field name="specialite_id" />
+                <separator />
+                <filter string="Disponibles" name="disponible" domain="[('disponibilite','=',True)]" />
+                <filter string="En congé" name="en_conge" domain="[('state','=','congé')]" />
                 <group expand="0" string="Regrouper par">
-                    <filter string="Spécialité" name="group_by_specialite" context="{'group_by':'specialite_id'}"/>
-                    <filter string="État" name="group_by_state" context="{'group_by':'state'}"/>
+                    <filter string="Spécialité" name="group_by_specialite"
+                        context="{'group_by':'specialite_id'}" />
+                    <filter string="État" name="group_by_state" context="{'group_by':'state'}" />
                 </group>
             </search>
         </field>
@@ -92,8 +110,8 @@
         <field name="name">Médecins</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">gestion_hospital.medecin</field>
-        <field name="view_mode">list,form</field>
-        <field name="search_view_id" ref="view_gestion_hospital_medecin_search"/>
+        <field name="view_mode">list,form,activity</field>
+        <field name="search_view_id" ref="view_gestion_hospital_medecin_search" />
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Créer votre premier médecin

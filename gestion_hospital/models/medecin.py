@@ -24,7 +24,7 @@ class Medecin(models.Model):
     specialite_id = fields.Many2one(
         "gestion_hospital.specialite",
         string="Spécialité",
-        required=True,
+        required=False,
         tracking=True,
         help="Spécialité médicale principale",
     )
@@ -164,6 +164,9 @@ class Medecin(models.Model):
 
     def action_marquer_conge(self):
         self.write({"state": "conge"})
+    
+    def action_marquer_formation(self):
+        self.write({"state": "formation"})
 
     @api.constrains("email")
     def _check_email(self):
