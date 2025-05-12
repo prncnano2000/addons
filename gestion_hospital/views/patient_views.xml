@@ -7,73 +7,87 @@
         <field name="arch" type="xml">
             <form string="Patient">
                 <header>
-                    <button name="action_marquer_en_cours" string="Marquer comme en traitement " type="object"
-                            class="btn-primary" invisible="state == 'en_cours'"/>
-                    <button name="action_marquer_gueri" string="Marquer comme guéri" type="object"
-                            class="btn-success" invisible="state == 'gueri'"/>
-                    <button name="action_marquer_decede" string="Marquer comme décédé" type="object"
-                            class="btn-danger" invisible="state == 'decede'"/>
-                    <button name="action_marquer_chronique" string="Marquer comme chronique" type="object"
-                            class="btn-warning" invisible="state == 'chronique'"/>
+                    <button name="action_marquer_en_cours" string="Marquer comme en traitement"
+                        type="object" class="btn-primary"
+                        invisible="state == 'en_cours'" />
+                    <button name="action_marquer_gueri" string="Marquer comme guéri"
+                        type="object" class="btn-success"
+                        invisible="state == 'gueri'" />
+                    <button name="action_marquer_decede" string="Marquer comme décédé"
+                        type="object" class="btn-danger"
+                        invisible="state == 'decede'" />
+                    <button name="action_marquer_chronique" string="Marquer comme chronique"
+                        type="object" class="btn-warning"
+                        invisible="state == 'chronique'" />
                     <field name="state" widget="statusbar"
-                        statusbar_visible="nouveau,en_cours,gueri,chronique,decede"/>
+                        statusbar_visible="nouveau,en_cours,gueri,chronique,decede" />
                 </header>
+
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="reference" readonly="1" placeholder="Référence automatique"/>
-                            <field name="name" required="1" placeholder="Nom complet du patient"/>
+                            <field name="reference" readonly="1" placeholder="Référence automatique" />
+                            <field name="name" required="1" placeholder="Nom complet du patient" />
                         </h1>
                     </div>
+
                     <group>
                         <group>
-                            <field name="image" widget="image" class="oe_avatar"/>
-                            <field name="age" readonly="1"/>
-                            <field name="sexe"/>
-                            <field name="date_naissance"/>
+                            <field name="image" widget="image" class="oe_avatar" />
+                            <field name="age" readonly="1" />
+                            <field name="sexe" />
+                            <field name="date_naissance" />
                         </group>
                         <group>
-                            <field name="telephone"/>
-                            <field name="email"/>
-                            <field name="groupe_sanguin"/>
-                            <field name="medecin_traitant_id" options="{'no_create': True}"/>
+                            <field name="telephone" />
+                            <field name="email" />
+                            <field name="groupe_sanguin" />
+                            <field name="medecin_traitant_id" options="{'no_create': True}" />
                         </group>
                     </group>
+
                     <notebook>
                         <page string="Informations médicales">
                             <group>
-                                <field name="historique_medical" widget="html"/>
-                                <field name="allergies" placeholder="Liste des allergies connues"/>
+                                <field name="historique_medical" widget="html" />
+                                <field name="allergies" placeholder="Liste des allergies connues" />
                             </group>
                         </page>
                         <page string="Consultations">
                             <field name="consultations_ids" context="{'default_patient_id': id}">
                                 <list>
-                                    
-                                    <field name="medecin_id"/>
-                                    <field name="motif"/>
-                                    <field name="diagnostic"/>
+                                    <field name="medecin_id" />
+                                    <field name="motif" />
+                                    <field name="diagnostic" />
                                 </list>
                             </field>
                         </page>
                         <page string="Hospitalisations">
                             <field name="hospitalisation_ids" context="{'default_patient_id': id}">
                                 <list>
-                                    <field name="date_admission"/>
-                                    <field name="chambre_id"/>
-                                    <field name="duree_jours"/>
-                                    <field name="state"/>
+                                    <field name="date_admission" />
+                                    <field name="chambre_id" />
+                                    <field name="duree_jours" />
+                                    <field name="state" />
                                 </list>
                             </field>
                         </page>
                     </notebook>
                 </sheet>
-                <!-- <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div> -->
             </form>
+        </field>
+    </record>
+    <record id="view_patient_form_inherit_chatter" model="ir.ui.view">
+        <field name="name">gestion_hospital.patient.form.inherit.chatter</field>
+        <field name="model">gestion_hospital.patient</field>
+        <field name="inherit_id" ref="view_patient_form" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//sheet" position="after">
+                    <chatter />
+                </xpath>
+
+            </data>
         </field>
     </record>
 
@@ -82,24 +96,24 @@
         <field name="name">gestion_hospital.patient.list</field>
         <field name="model">gestion_hospital.patient</field>
         <field name="arch" type="xml">
-            <list string="Patients" decoration-info="state == 'nouveau'" 
-                  decoration-success="state == 'gueri'" 
-                  decoration-warning="state == 'chronique'" 
-                  decoration-danger="state == 'decede'">
-                <field name="reference"/>
-                <field name="name"/>
-                <field name="age"/>
-                <field name="sexe"/>
-                <field name="telephone"/>
-                <field name="email"/>
-                <field name="groupe_sanguin"/>
-                <field name="state"/>
+            <list string="Patients" decoration-info="state == 'nouveau'"
+                decoration-success="state == 'gueri'"
+                decoration-warning="state == 'chronique'"
+                decoration-danger="state == 'decede'">
+                <field name="reference" />
+                <field name="name" />
+                <field name="age" />
+                <field name="sexe" />
+                <field name="telephone" />
+                <field name="email" />
+                <field name="groupe_sanguin" />
+                <field name="state" />
             </list>
         </field>
     </record>
 
     <!-- Vue Recherche -->
-<!-- <record id="view_patient_search" model="ir.ui.view">
+    <!-- <record id="view_patient_search" model="ir.ui.view">
     <field name="name">gestion_hospital.patient.search</field>
     <field name="model">gestion_hospital.patient</field>
     <field name="arch" type="xml">

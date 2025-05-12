@@ -56,12 +56,20 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" groups="base.group_user"/>
-                    <field name="activity_ids" groups="base.group_user"/>
-                    <field name="message_ids" groups="base.group_user"/>
-                </div>
             </form>
+        </field>
+    </record>
+    <record id="view_hospitalisation_form_inherit_chatter" model="ir.ui.view">
+        <field name="name">gestion_hospital.hospitalisation.form.inherit.chatter</field>
+        <field name="model">gestion_hospital.hospitalisation</field>
+        <field name="inherit_id" ref="view_hospitalisation_form" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//sheet" position="after">
+                    <chatter />
+                </xpath>
+
+            </data>
         </field>
     </record>
     <!-- Vue liste -->

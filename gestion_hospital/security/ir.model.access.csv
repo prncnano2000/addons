@@ -1,0 +1,62 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_patient_user,Access Patient User,gestion_hospital.model_gestion_hospital_patient,gestion_hospital.group_hospital_user,1,0,0,0
+access_patient_medecin,Access Patient Medecin,gestion_hospital.model_gestion_hospital_patient,gestion_hospital.group_hospital_medecin,1,1,1,0
+access_patient_admin,Access Patient Admin,gestion_hospital.model_gestion_hospital_patient,gestion_hospital.group_hospital_admin,1,1,1,1
+
+
+
+access_medecin_user,Access Medecin User,gestion_hospital.model_gestion_hospital_medecin,gestion_hospital.group_hospital_user,1,0,0,0
+access_medecin_medecin,Access Medecin Medecin,gestion_hospital.model_gestion_hospital_medecin,gestion_hospital.group_hospital_medecin,1,1,0,0
+access_medecin_admin,Access Medecin Admin,gestion_hospital.model_gestion_hospital_medecin,gestion_hospital.group_hospital_admin,1,1,1,1
+
+
+access_specialite_user,Access Specialite User,gestion_hospital.model_gestion_hospital_specialite,gestion_hospital.group_hospital_user,1,0,0,0
+access_specialite_admin,Access Specialite Admin,gestion_hospital.model_gestion_hospital_specialite,gestion_hospital.group_hospital_admin,1,1,1,1
+
+access_chambre_user,Access Chambre User,gestion_hospital.model_gestion_hospital_chambre,gestion_hospital.group_hospital_user,1,1,1,0
+access_chambre_medecin,Access Chambre Medecin,gestion_hospital.model_gestion_hospital_chambre,gestion_hospital.group_hospital_medecin,1,1,0,0
+access_chambre_admin,Access Chambre Admin,gestion_hospital.model_gestion_hospital_chambre,gestion_hospital.group_hospital_admin,1,1,1,1
+
+access_consultation_user,Access Consultation User,gestion_hospital.model_gestion_hospital_consultation,gestion_hospital.group_hospital_user,1,0,0,0
+access_consultation_medecin,Access Consultation Medecin,gestion_hospital.model_gestion_hospital_consultation,gestion_hospital.group_hospital_medecin,1,1,1,0
+access_consultation_admin,Access Consultation Admin,gestion_hospital.model_gestion_hospital_consultation,gestion_hospital.group_hospital_admin,1,1,1,1
+
+
+access_hospitalisation_user,Access Hospitalisation User,gestion_hospital.model_gestion_hospital_hospitalisation,gestion_hospital.group_hospital_user,1,0,0,0
+access_hospitalisation_medecin,Access Hospitalisation Medecin,gestion_hospital.model_gestion_hospital_hospitalisation,gestion_hospital.group_hospital_medecin,1,0,0,0
+access_hospitalisation_admin,Access Hospitalisation Admin,gestion_hospital.model_gestion_hospital_hospitalisation,gestion_hospital.group_hospital_admin,1,1,1,1
+
+access_res_users_hospital_user,Access Res Users Hospital User,base.model_res_users,gestion_hospital.group_hospital_user,1,0,0,0
+access_res_users_hospital_medecin,Access Res Users Hospital Medecin,base.model_res_users,gestion_hospital.group_hospital_medecin,1,0,0,0
+access_res_users_hospital_admin,Access Res Users Hospital Admin,base.model_res_users,gestion_hospital.group_hospital_admin,1,1,0,0
+
+
+access_res_groups_hospital_user,Access Res Groups Hospital User,base.model_res_groups,gestion_hospital.group_hospital_user,0,0,0,0
+access_res_groups_hospital_medecin,Access Res Groups Hospital Medecin,base.model_res_groups,gestion_hospital.group_hospital_medecin,0,0,0,0
+access_res_groups_hospital_admin,Access Res Groups Hospital Admin,base.model_res_groups,gestion_hospital.group_hospital_admin,1,1,0,0
+
+
+access_irmodeleaccess_hospital_user,Access IrModelAccess Hospital User,base.model_ir_model_access,gestion_hospital.group_hospital_user,0,0,0,0
+access_irmodeleaccess_hospital_medecin,Access IrModelAccess Hospital Medecin,base.model_ir_model_access,gestion_hospital.group_hospital_medecin,0,0,0,0
+access_irmodeleaccess_hospital_admin,Access IrModelAccess Hospital Admin,base.model_ir_model_access,gestion_hospital.group_hospital_admin,1,0,0,0
+
+
+access_irrule_hospital_user,Access IrRule Hospital User,base.model_ir_rule,gestion_hospital.group_hospital_user,0,0,0,0
+access_irrule_hospital_medecin,Access IrRule Hospital Medecin,base.model_ir_rule,gestion_hospital.group_hospital_medecin,0,0,0,0
+access_irrule_hospital_admin,Access IrRule Hospital Admin,base.model_ir_rule,gestion_hospital.group_hospital_admin,1,0,0,0
+
+
+access_res_company_hospital_user,Access Res Company Hospital User,base.model_res_company,gestion_hospital.group_hospital_user,1,0,0,0
+access_res_company_hospital_medecin,Access Res Company Hospital Medecin,base.model_res_company,gestion_hospital.group_hospital_medecin,1,0,0,0
+access_res_company_hospital_admin,Access Res Company Hospital Admin,base.model_res_company,gestion_hospital.group_hospital_admin,1,1,0,0
+
+
+access_res_partner_hospital_user,Access Res Partner Hospital User,base.model_res_partner,gestion_hospital.group_hospital_user,1,0,0,0
+access_res_partner_hospital_medecin,Access Res Partner Hospital Medecin,base.model_res_partner,gestion_hospital.group_hospital_medecin,1,0,0,0
+access_res_partner_hospital_admin,Access Res Partner Hospital Admin,base.model_res_partner,gestion_hospital.group_hospital_admin,1,1,1,1
+
+
+
+access_medecin_user,Access Medecin User,gestion_hospital.model_gestion_hospital_medecin,gestion_hospital.group_hospital_user,1,0,0,0
+

@@ -51,6 +51,19 @@
             </form>
         </field>
     </record>
+    <record id="view_specialite_form_inherit_chatter" model="ir.ui.view">
+        <field name="name">gestion_hospital.specialite.form.inherit.chatter</field>
+        <field name="model">gestion_hospital.specialite</field>
+        <field name="inherit_id" ref="view_gestion_hospital_specialite_form" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//sheet" position="after">
+                    <chatter />
+                </xpath>
+
+            </data>
+        </field>
+    </record>
 
     <!-- Vue liste pour les spécialités -->
     <record id="view_gestion_hospital_specialite_tree" model="ir.ui.view">

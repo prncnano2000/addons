@@ -63,12 +63,20 @@
                         </page>
                     </notebook>
                 </sheet>
-                <!-- <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div> -->
             </form>
+        </field>
+    </record>
+    <record id="view_consultation_form_inherit_chatter" model="ir.ui.view">
+        <field name="name">gestion_hospital.consultation.form.inherit.chatter</field>
+        <field name="model">gestion_hospital.consultation</field>
+        <field name="inherit_id" ref="view_gestion_hospital_consultation_form" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//sheet" position="after">
+                    <chatter />
+                </xpath>
+
+            </data>
         </field>
     </record>
 

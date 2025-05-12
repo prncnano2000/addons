@@ -1,0 +1,16 @@
+/* Correction de la largeur du chatter */
+.o_form_with_chatter .oe_chatter {
+    max-width: 100%;
+    flex: 0 0 300px;
+    box-sizing: border-box;
+}
+
+.o_form_with_chatter {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Empêche le chatter de passer en dessous du form */
+/* .o_form_with_chatter > sheet {
+    flex: 1;
+} */

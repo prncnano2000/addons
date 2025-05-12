@@ -58,14 +58,20 @@
                         </page>
                     </notebook>
                 </sheet>
-                <!-- <group name="chatter" string="chatter">
-                    <div class="oe_chatter">
-                        <field name="activity_ids"/>
-                        <field name="message_ids"/>
-                    </div>
-                </group> -->
-                
             </form>
+        </field>
+    </record>
+    <record id="view_medecin_form_inherit_chatter" model="ir.ui.view">
+        <field name="name">gestion_hospital.medecin.form.inherit.chatter</field>
+        <field name="model">gestion_hospital.medecin</field>
+        <field name="inherit_id" ref="view_gestion_hospital_medecin_form" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//sheet" position="after">
+                    <chatter />
+                </xpath>
+
+            </data>
         </field>
     </record>
     

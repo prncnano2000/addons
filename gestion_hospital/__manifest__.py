@@ -29,11 +29,14 @@
         'demo/patient_demo.xml',
         'demo/medecin_demo1.xml',
         'demo/patient_demo1.xml',
+        'security/groups.xml',
+        'security/ir.model.access.csv',
         # 'report/patient_report.xml',
         # 'report/consultation_report.xml',
     ],
     'assets': {
         'web.assets_backend': [
+            # 'gestion_hospital/static/src/css/patient_chatter_fix.css'
             # 'gestion_hospital/static/src/js/hospital_dashboard.js',
             # 'gestion_hospital/static/src/css/hospital_style.css',
         ],

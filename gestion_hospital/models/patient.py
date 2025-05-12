@@ -12,7 +12,7 @@ class Patient(models.Model):
     name = fields.Char(
         string="Nom complet",
         required=True,
-        tracking=True,
+        track_visibility="onchange",
         help="Nom et prénom du patient",
     )
     reference = fields.Char(
